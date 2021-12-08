@@ -33,7 +33,7 @@ class AuthController extends Controller
                 'success' => false,
                 'message' => "Creation failed",
                 'errors' => $validator->errors()
-            ]);
+            ], 422);
         }
         $user = User::create([
             'name' => request()->get('name'),
@@ -61,9 +61,11 @@ class AuthController extends Controller
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json([
-                    'message' => 'Invalid user name or password',
-                    'error' => 'Unauthorized',
-                ], 401);
+                    'message' => 'Unauthorized',
+                    'errors' => [
+                        'email' => 'Invalid user name or password'
+                    ],
+                ], 422);
             }
         } catch (JWTException $e) {
             return response()->json([

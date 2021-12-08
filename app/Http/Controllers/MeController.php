@@ -14,7 +14,7 @@ class MeController extends Controller
      */
     public function index()
     {
-        return response()->json(['success' => true, 'data' => auth()->user()]);
+        return response()->json(['success' => true, 'user' => auth()->user()]);
     }
 
     /**
