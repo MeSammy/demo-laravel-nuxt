@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TMDBController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,7 @@ Route::group([
     Route::get('me', 'MeController@index');
     Route::post('auth/logout', 'MeController@logout');
 });
+
+
+Route::get('getMovies', [TMDBController::class, 'getMovies']);
+Route::get('getMoviesById', [TMDBController::class, 'getMoviesById']);
