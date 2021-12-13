@@ -34,4 +34,5 @@ Route::group([
 
 
 Route::get('getMovies', [TMDBController::class, 'getMovies']);
+Route::get('getMoviesByQuery', [TMDBController::class, 'getMoviesByQuery']);
 Route::get('getMoviesById', [TMDBController::class, 'getMoviesById']);

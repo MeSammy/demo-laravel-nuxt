@@ -49,6 +49,35 @@ class TMDBController extends Controller
     }
 
     /**
+     * Show a list of all movies.
+     *
+     * @return Response
+     */
+    public function getMoviesByQuery(Request $request)
+    {
+        $query = $request->get('search');
+        $params = [
+            'headers' => [
+                'Authorization' => 'Bearer ' . env('TMDB_APP_TOKEN'),
+                'Content-Type' => 'application/json',
+            ],
+            'query' => 'query=' . $query
+        ];
+
+        try {
+            $response =
+                json_decode($this->client->request('GET', '/3/search/movie', $params)->getBody(), true);
+            return response()->json(['success' => true, 'data' => $response]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage(),
+                'message' => 'Something went wrong.'
+            ], 422);
+        }
+    }
+
+    /**
      * Show movie detail.
      *
      * @return Response
